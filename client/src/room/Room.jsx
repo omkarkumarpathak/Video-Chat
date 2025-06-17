@@ -1,17 +1,20 @@
-import { useEffect,useCallback } from 'react'
+import { useEffect,useCallback,useState } from 'react'
 import { useSocket } from '../context/SocketProvider' 
 
 function Room() {
 
+    const [message,setMessage]=useState();
+
     const socket=useSocket();
 
-    const handleUserJoining=useCallback(({email,id})=>{ 
-
-        console.log(`User ${email} Joined the room ${id}`);
+    const handleUserJoining=useCallback(({email,id})=>{  
+        setMessage( `User ${email} Joined the room ${id}`)
 
     },[])
 
+
     useEffect(()=>{
+
         socket.on("User:Joined",handleUserJoining);
 
         return ()=>{
@@ -21,9 +24,10 @@ function Room() {
     },[socket,handleUserJoining]);
 
   return (
-    <h1>
-      Room
-    </h1>
+    <div>
+      <h2>Room</h2>
+      <span>{message}</span>
+    </div>
   )
 }
 
