@@ -8,7 +8,6 @@ function Lobby() {
     const [room, setRoom] = useState('');
 
     const navigate=useNavigate();
-    
     const socket = useSocket()
 
     const handleSubmit = useCallback((e) => {
